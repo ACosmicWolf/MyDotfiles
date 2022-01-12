@@ -1,0 +1,127 @@
+
+env:
+  TERM: xterm-256color
+
+window:
+  dimensions:
+    columns: 0
+    lines: 0
+  
+  padding:
+    x: 20
+    y: 20
+
+  dynamic_padding: true
+
+  decorations: full
+
+  # When true, alacritty starts maximized.
+  startup_mode: Windowed
+
+scrolling:
+  history: 32768
+
+  multiplier: 3
+
+font:
+  normal:
+    family: "JetBrainsMono Nerd Font"
+  size: 16
+  glyph_offset:
+    y: 1
+  use_thin_strokes: true
+
+  size: 12.0
+
+  offset:
+    x: 0
+    y: 0
+
+  glyph_offset:
+    x: 0
+    y: 0
+
+  use_thin_strokes: true
+
+  debug:
+    render_timer: true
+    persistent_logging: false
+
+
+
+colors:
+  # Default colors
+  primary:
+    background: '0x2e3440'
+    foreground: '0xb9bfca'
+  # Normal colors
+  normal:
+    black:   '0x3b4252'
+    red:     '0xbf616a'
+    green:   '0xa3be8c'
+    yellow:  '0xebcb8b'
+    blue:    '0x81a1c1'
+    magenta: '0xb48ead'
+    cyan:    '0x88c0d0'
+    white:   '0xe5e9f0'
+  # Bright colors
+  bright:
+    black:   '0x465780'
+    red:     '0xd06f79'
+    green:   '0xb1d196'
+    yellow:  '0xf0d399'
+    blue:    '0x8cafd2'
+    magenta: '0xc895bf'
+    cyan:    '0x93ccdc'
+    white:   '0xe7ecf4'
+  indexed_colors:
+    - { index: 16, color: '0xc9826b' }
+    - { index: 17, color: '0xbf88bc' }
+
+mouse_bindings:
+  - { mouse: Middle, action: PasteSelection }
+
+mouse:
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing: false
+
+  hints:
+    modifiers: None
+
+selection:
+  semantic_escape_chars: ',│`|:"'' ()[]{}<>'
+
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard: true
+
+# Allow terminal applications to change Alacritty's window title.
+window.dynamic_title: true
+
+cursor:
+  # Cursor style
+  #
+  # Values for `style`:
+  #   - ▇ Block
+  #   - _ Underline
+  #   - | Beam
+  style: Beam
+
+  # If this is `true`, the cursor will be rendered as a hollow box when the
+  # window is not focused.
+  unfocused_hollow: true
+
+  cursor_blink: true
+  cursor_blink_interval: 200
+
+# Live config reload (changes require restart)
+live_config_reload: true
+
+
+enable_experimental_conpty_backend: false
+
+# Send ESC (\x1b) before characters when alt is pressed.
+alt_send_esc: true
+

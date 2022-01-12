@@ -3,21 +3,17 @@ import re
 import socket
 import subprocess
 from libqtile import qtile
-from libqtile.config import (
-	Screen,
-	Drag,
-	Click,
-	ScratchPad,
-	DropDown,
-	Match,
-)
+from libqtile.config import Screen , Match 
 from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook, extension 
-from libqtile.lazy import lazy
+from libqtile import layout, hook, extension 
 from typing import List  
 
 from keys import keys
+#from mouse import mouse
 from groups import groups
+
+from bars import main_bar
+
 
 
 
@@ -42,11 +38,7 @@ layouts = [
 
 
 
-screens = [
-]
-
-
-
+screens = [Screen(top=main_bar)]
 
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
@@ -79,7 +71,3 @@ home = os.path.expanduser("~")
 def start_once():
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
-# Launches Polybar
-@hook.subscribe.startup
-def start():
-    subprocess.call([home + '/.config/polybar/launch.sh'])

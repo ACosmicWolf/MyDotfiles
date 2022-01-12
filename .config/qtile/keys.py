@@ -2,8 +2,10 @@ import os
 
 from libqtile.config import Key
 from libqtile.command import lazy
+from libqtile.widget import backlight
 
 from groups import groups
+
 
 home = os.path.expanduser("~")                      # Home Folder
 mod = "mod4"                                        # Sets mod key to SUPER KEY
@@ -12,6 +14,7 @@ myBrowser = "firefox"                               # Browser
 fileManager = "nautilus"                            # File Manager
 launcher = home + "/.config/rofi/launcher.sh"       # Launcher Script
 powerMenu = home + "/.config/rofi/powermenu.sh"     # Power Menu Script
+
 
 keys = [
          ### The essentials
@@ -119,9 +122,24 @@ keys = [
             lazy.spawn("flameshot gui"),
             desc='Open Screenshot Utility'
             ),
+        Key(
+            [],
+            "XF86MonBrightnessUp",
+            lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.UP)
+        ),
+        Key(
+            [],
+            "XF86MonBrightnessDown",
+            lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.DOWN)
+        ),
+        Key(
+            [mod],
+            "l",
+            lazy.spawn("bash /home/cosmo/.config/eww/launch_eww")
+        ),
 ]
 
 for i in groups:
-    keys.append(Key([mod], i.name, lazy.group[i.name].toscreen()))
+    keys.append(Key([mod], i.name, lazy.group[i.name].toscreen(toggle=True)))
     keys.append(Key([mod, 'shift'], i.name,
-                    lazy.window.togroup(i.name)))
+                    lazy.window.togroup(i.name))) 
