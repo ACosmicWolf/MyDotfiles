@@ -4,6 +4,10 @@ from qtile_extras.widget.decorations import RectDecoration
 
 from libqtile.widget import base
 
+from libqtile.command import lazy
+
+import os
+
 
 decor = {
     "decorations": [
@@ -12,6 +16,7 @@ decor = {
     "padding": 10,
 }
 
+home = os.path.expanduser('~')
 
 colors = [
 	["#2e3440", "#2e3440"],  # 0 background
@@ -61,11 +66,10 @@ main_bar = bar.Bar([
         **decor,
         borderwidth= 4,
 	    active= colors[9],
-	    inactive= colors[10],
+	    inactive= colors[2],
 	    disable_drag= True,
-	    highlight_color= colors[6],
-	    block_highlight_text_color= colors[6],
 	    highlight_method= "text",
+        highlight_color=colors[13],
 	    foreground= colors[1],
 	    background= colors[14],
     ),
@@ -76,7 +80,6 @@ main_bar = bar.Bar([
     ),
     DotWidget(),
     widget.CPU(
-        #**decor,
         background=colors[14],
         format="  {load_percent}%",
         fontsize=14,
@@ -84,7 +87,6 @@ main_bar = bar.Bar([
     ),
     DotWidget(),
     widget.Memory(
-        #**decor,
         background=colors[14],
         format=" {MemUsed: .0f} MB",
         fontsize=14,
@@ -99,11 +101,17 @@ main_bar = bar.Bar([
         background=colors[14]
     ),
     widget.Spacer(background=colors[14]),
-    widget.Volume(
-        **decor,
-        foreground=colors[13],
+   # widget.PulseVolume(
+   #     **decor,
+   #     foreground=colors[13],
+   #     background=colors[14],
+   #     fmt="墳  {}",
+   #     mouse_callbacks={'Button3': lazy.spawn("pavucontrol")}
+   # ),
+    widget.ALSAWidget(
+        mode="both",
+        theme_path="/usr/share/icons/Paper/24x24/panel",
         background=colors[14],
-        fmt="墳  {}"
     ),
     DotWidget(),
     widget.Backlight(
@@ -121,7 +129,8 @@ main_bar = bar.Bar([
         format=" {essid}",
         foreground=colors[7],
         background=colors[14],
-        font="FiraCode Nerd Font"
+        font="FiraCode Nerd Font",
+        mouse_callbacks={'Button1': lazy.spawn("networkmanager_dmenu")}
     ),
     widget.Spacer(length=4,background=colors[14]),
     DotWidget(),
@@ -137,7 +146,8 @@ main_bar = bar.Bar([
         text="",
         background=colors[14],
         font="FiraCode Nerd Font",
-        foreground=colors[3]
+        foreground=colors[3],
+        mouse_callbacks={'Button1': lazy.spawn(home+"/.config/rofi/powermenu.sh")}
     ),
     widget.Spacer(length=4,background=colors[14])
     ], 35)
