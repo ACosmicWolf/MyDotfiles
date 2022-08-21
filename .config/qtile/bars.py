@@ -94,6 +94,16 @@ main_bar = bar.Bar([
     ),
     DotWidget(),
     widget.Spacer(background=colors[14]),
+    widget.Mpd2(**decor,
+        foreground=colors[8],
+        font="FiraCode Nerd Font",
+        background=colors[14],
+        idle_format='{play_status} {idle_message}', 
+        idle_message='Not Connected',
+        status_format='{play_status} {title}',
+        mouse_buttons={1: 'toggle', 3: 'stop', 4: 'previous', 5: 'next'}
+    ),
+    widget.Spacer(length=4,background=colors[14]),
     widget.Clock(**decor,
         format=" %I:%M %p",
         foreground=colors[8],
@@ -101,18 +111,18 @@ main_bar = bar.Bar([
         background=colors[14]
     ),
     widget.Spacer(background=colors[14]),
-   # widget.PulseVolume(
-   #     **decor,
-   #     foreground=colors[13],
-   #     background=colors[14],
-   #     fmt="墳  {}",
-   #     mouse_callbacks={'Button3': lazy.spawn("pavucontrol")}
-   # ),
-    widget.ALSAWidget(
-        mode="both",
-        theme_path="/usr/share/icons/Paper/24x24/panel",
+    widget.PulseVolume(
+        **decor,
+        foreground=colors[13],
         background=colors[14],
+        fmt="墳  {}",
+        mouse_callbacks={'Button3': lazy.spawn("pavucontrol")}
     ),
+   # widget.ALSAWidget(
+   #      mode="both",
+   #     theme_path="/usr/share/icons/Paper/24x24/panel",
+   #     background=colors[14],
+   # ),
     DotWidget(),
     widget.Backlight(
         **decor,
@@ -154,9 +164,99 @@ main_bar = bar.Bar([
 
 
 
-
-
-
-
-
-
+second_bar = bar.Bar([
+    widget.Spacer(length=4,background=colors[14]),
+    widget.TextBox(
+        **decor,
+        text='',
+        fontsize=14,
+        foreground=colors[5],
+        background=colors[14]
+    ),
+    widget.Spacer(length=2,background=colors[14]),
+    DotWidget(),
+    widget.Spacer(length=2,background=colors[14]),
+    widget.GroupBox(
+        **decor,
+        borderwidth= 4,
+	    active= colors[9],
+	    inactive= colors[2],
+	    disable_drag= True,
+	    highlight_method= "text",
+        highlight_color=colors[13],
+	    foreground= colors[1],
+	    background= colors[14],
+    ),
+    DotWidget(),
+    widget.CurrentLayout(
+        **decor,
+        background=colors[14],
+    ),
+    DotWidget(),
+    widget.CPU(
+        background=colors[14],
+        format="  {load_percent}%",
+        fontsize=14,
+        foreground=colors[5]
+    ),
+    DotWidget(),
+    widget.Memory(
+        background=colors[14],
+        format=" {MemUsed: .0f} MB",
+        fontsize=14,
+        foreground=colors[8]
+    ),
+    DotWidget(),
+    widget.Spacer(background=colors[14]),
+    widget.Clock(**decor,
+        format=" %I:%M %p",
+        foreground=colors[8],
+        font='FiraCode Nerd Font',
+        background=colors[14]
+    ),
+    widget.Spacer(background=colors[14]),
+    widget.PulseVolume(
+        **decor,
+        foreground=colors[13],
+        background=colors[14],
+        fmt="墳  {}",
+        mouse_callbacks={'Button3': lazy.spawn("pavucontrol")}
+    ),
+    DotWidget(),
+    widget.Backlight(
+        **decor,
+        foreground=colors[8],
+        background=colors[14],
+        brightness_file="/sys/class/backlight/intel_backlight/brightness",
+        max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness",
+        format="  {percent:2.0%}"
+    ),
+    DotWidget(),
+    widget.Wlan(
+            **decor,
+        interface="wlp0s20f0u6",
+        format=" {essid}",
+        foreground=colors[7],
+        background=colors[14],
+        font="FiraCode Nerd Font",
+        mouse_callbacks={'Button1': lazy.spawn("networkmanager_dmenu")}
+    ),
+    widget.Spacer(length=4,background=colors[14]),
+    DotWidget(),
+    widget.Spacer(length=4,background=colors[14]),
+    widget.Systray(
+        background=colors[14],
+    ),
+    widget.Spacer(length=4,background=colors[14]),
+    DotWidget(),
+    widget.Spacer(length=4,background=colors[14]),
+    widget.TextBox(
+        **decor,
+        text="",
+        background=colors[14],
+        font="FiraCode Nerd Font",
+        foreground=colors[3],
+        mouse_callbacks={'Button1': lazy.spawn(home+"/.config/rofi/powermenu.sh")}
+    ),
+    widget.Spacer(length=4,background=colors[14])
+    ], 35)

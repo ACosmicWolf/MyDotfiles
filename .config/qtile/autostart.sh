@@ -15,3 +15,6 @@ picom &
 # Cool Volume Bar
 python ~/.local/bin/pulse-volume-watcher.py | xob &
 
+xrandr --output "DP1" --off &
+
+sxhkd -m 1&

@@ -10,9 +10,9 @@ from groups import groups
 home = os.path.expanduser("~")                      # Home Folder
 mod = "mod4"                                        # Sets mod key to SUPER KEY
 myTerm = "alacritty"                                # Terminal
-myBrowser = "firefox"                               # Browser
+myBrowser = "librewolf"                               # Browser
 fileManager = "nautilus"                            # File Manager
-launcher = home + "/.config/rofi/launcher.sh"       # Launcher Script
+launcher = "rofi -show drun"       # Launcher Script
 powerMenu = home + "/.config/rofi/powermenu.sh"     # Power Menu Script
 
 
@@ -133,9 +133,29 @@ keys = [
             lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.DOWN)
         ),
         Key(
-            [mod],
+                [],
+                "XF86AudioStop",
+                lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop") 
+        ),
+        Key(
+                [],
+                "XF86AudioPlay",
+                lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") 
+        ),
+        Key(
+                [],
+                "XF86AudioPrev",
+                lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") 
+        ),
+        Key(
+                [],
+                "XF86AudioNext",
+                lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") 
+        ),
+        Key(
+            [mod,"mod1"],
             "l",
-            lazy.spawn("bash /home/cosmo/.config/eww/launch_eww")
+            lazy.spawn(home+"/.local/bin/lockscreen.sh")
         ),
 ]
 

@@ -3,7 +3,7 @@ import re
 import socket
 import subprocess
 from libqtile import qtile
-from libqtile.config import Screen , Match 
+from libqtile.config import Screen , Match, ScratchPad, DropDown, Key 
 from libqtile.command import lazy
 from libqtile import layout, hook, extension 
 from typing import List  
@@ -14,7 +14,7 @@ from groups import groups
 
 from bars import main_bar
 
-
+term = "alacritty"
 
 
 # Default layout theme
@@ -36,7 +36,21 @@ layouts = [
     #layout.Zoomy(**layout_theme)
 ]
 
+groups.extend([
+    ScratchPad("scratchpad", [
+        DropDown("pulsemixer", term + " -e pulsemixer", opacity=1, y=0.15, height=0.75),
+        DropDown("term", term, opacity=1),
+        DropDown("music", term + " -e ncmpcpp", opacity=1, y=0.15, height=0.75),
+        DropDown("spotify", " spotify", opacity=1, y=0.15, height=0.75),
+    ]),
+])
 
+keys.extend([
+    Key([], 'F1', lazy.group['scratchpad'].dropdown_toggle('music')),
+    Key(["mod1"], 'F1', lazy.group['scratchpad'].dropdown_toggle('spotify')),
+    Key([], 'F11', lazy.group['scratchpad'].dropdown_toggle('pulsemixer')),
+    Key([], 'F12', lazy.group['scratchpad'].dropdown_toggle('term')),
+])
 
 screens = [Screen(top=main_bar)]
 
